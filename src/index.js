@@ -1,7 +1,10 @@
 const defaultFont = 'Consolas'
 const defaultGlyphs =
-	' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
+	' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~°'
 
+// ==========================
+// ==== update functions ====
+// ==========================
 const updateOutput = elm => {
 	const output = elm.previousElementSibling.querySelector('code')
 	output.innerText = `${elm.value}${output.getAttribute('data-unit')}`
@@ -13,8 +16,8 @@ const updateFontFamily = elm => {
 }
 
 const updateGlyphs = elm => {
-	elm.value = Array.from(new Set(elm.value.split(''))).join('')
-
+	const allGlyphs = Array.from(new Set(elm.value.split(''))).join('')
+	elm.value = allGlyphs.replace(/\n/gm, '')
 	const previewElm = document.querySelector('#previewElm')
 	previewElm.innerHTML = ''
 
@@ -25,6 +28,9 @@ const updateGlyphs = elm => {
 	}
 }
 
+// ===================================
+// === handle font family updates ====
+// ===================================
 const fontFamily = document.querySelector('#fontFamily')
 fontFamily.addEventListener('input', elm => {
 	updateFontFamily(elm.target.value)
@@ -37,6 +43,10 @@ fontFamily.addEventListener('change', elm => {
 })
 updateFontFamily(fontFamily.value)
 
+// ============================================
+// === handle checkboxes and range sliders ====
+// ============================================
+document.querySelectorAll('input[type="checkbox"]').forEach(elm => elm.addEventListener('input', _ => render()))
 document.querySelectorAll('input[type="range"]').forEach(elm => {
 	elm.addEventListener('input', _ => {
 		updateOutput(elm)
@@ -45,6 +55,9 @@ document.querySelectorAll('input[type="range"]').forEach(elm => {
 	updateOutput(elm)
 })
 
+// =============================
+// === handle glyph updates ====
+// =============================
 const glyphs = document.querySelector('#glyphs')
 glyphs.value = defaultGlyphs
 glyphs.addEventListener('input', elm => {
@@ -54,6 +67,9 @@ glyphs.addEventListener('input', elm => {
 glyphs.addEventListener('change', _ => render())
 updateGlyphs(glyphs)
 
+// ==================================
+// === handle download functions ====
+// ==================================
 let timeOut1 = setTimeout(_ => {}, 10)
 let timeOut2 = setTimeout(_ => {}, 10)
 const btnCopy = document.querySelector('#copy')

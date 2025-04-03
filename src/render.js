@@ -1,5 +1,9 @@
 const canvas = document.querySelector('#canvas')
 const ctx = canvas.getContext('2d')
+ctx.imageSmoothingEnabled = false
+ctx.mozImageSmoothingEnabled = false
+ctx.webkitImageSmoothingEnabled = false
+
 let fileName = 'test.js'
 let colors = {
 	foreground: 'white',
@@ -11,9 +15,6 @@ let output = ''
 function setupCanvas() {
 	canvas.width = 1
 	canvas.height = 1
-	ctx.imageSmoothingEnabled = false
-	ctx.mozImageSmoothingEnabled = false
-	ctx.webkitImageSmoothingEnabled = false
 }
 
 function clearCanvas() {
@@ -21,8 +22,8 @@ function clearCanvas() {
 	ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 }
 
-function prepareFont(font, size) {
-	ctx.font = `${size}px "${font}"`
+function prepareFont(font, size, bold) {
+	ctx.font = bold ? `bold ${size}px "${font}"` : `${size}px "${font}"`
 	ctx.fillStyle = colors.foreground
 }
 
@@ -43,6 +44,10 @@ function getSumOfColumns(r, col, row) {
 }
 
 function render() {
+	const boldFonts = document.getElementById('rA').checked
+	const boundingBoxes = document.getElementById('rB').checked
+	document.getElementById('previewElm').setAttribute('data-boxes', boundingBoxes ? true : false)
+
 	setupCanvas()
 	clearCanvas()
 
@@ -52,9 +57,9 @@ function render() {
 	const y = Number(document.querySelector('#offset').value)
 	const glyphs = document.querySelector('#glyphs').value
 	const threshold = Number(document.querySelector('#threshold').value)
-	prepareFont(font, size)
+	prepareFont(font, size, boldFonts)
 
-	const width = Math.floor(ctx.measureText('A').width) - crop
+	const width = Math.floor(ctx.measureText('A').width) + crop
 	const { actualBoundingBoxAscent, actualBoundingBoxDescent } = ctx.measureText(glyphs)
 	const height = Math.round(actualBoundingBoxAscent + actualBoundingBoxDescent)
 	let lookup = []
@@ -68,8 +73,8 @@ function render() {
 	for (let i = 0, n = glyphs.length; i < n; i++) {
 		const glyph = glyphs[i]
 		clearCanvas()
-		prepareFont(font, size)
-		ctx.fillText(glyph, -crop * 0.5, height - y)
+		prepareFont(font, size, boldFonts)
+		ctx.fillText(glyph, crop * 0.5, height + y)
 		try {
 			const red = []
 			const full = ctx.getImageData(0, 0, width, height)
@@ -105,6 +110,6 @@ function render() {
 
 	const dataCode = JSON.stringify(fontObj)
 	output = '// prettier-ignore\nexport default ' + dataCode
-	fileName = `${fontObj.name}.js`
-	document.getElementById('code').value = `// ${fontObj.name}.js\nexport default ${dataCode}`
+	fileName = `font.${fontObj.name}.js`
+	document.getElementById('code').value = `// ${fileName}\nexport default ${dataCode}`
 }

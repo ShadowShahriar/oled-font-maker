@@ -8,7 +8,7 @@
 }
 
 html {
-	font-family: 'JetBrains Mono';
+	font-family: 'JetBrains Mono', monospace;
 }
 
 html,
@@ -23,5 +23,9 @@ body {
 main {
 	margin: auto;
 	max-width: 700px;
-	padding-bottom: 5em;
+	padding-bottom: 3em;
+}
+
+canvas {
+	display: none;
 }

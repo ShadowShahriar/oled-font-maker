@@ -1,6 +1,3 @@
-<!-- @format -->
-<!-- * starter for more awesome HTML/CSS projects 😄 -->
-
 <!DOCTYPE html>
 <html lang="en" data-js="no">
 	<head>
@@ -8,35 +5,37 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<!-- TODO Tweak theme colors -->
 		<meta name="theme-color" content="#151515" />
 		<meta name="theme-color" content="black" media="(prefers-color-scheme: dark)" />
 
-		<!-- TODO Add a nice title -->
 		<title>OLED Font Maker</title>
 		<meta name="twitter:title" content="OLED Font Maker" />
 		<meta property="og:title" content="OLED Font Maker" />
 
-		<!-- TODO Add a beautiful description -->
-		<meta name="description" content="" />
-		<meta name="twitter:description" content="" />
-		<meta property="og:description" content="" />
+		<meta name="description" content="A tool for creating custom font modules for the oled-rpi-i2c-bus package." />
+		<meta
+			name="twitter:description"
+			content="A tool for creating custom font modules for the oled-rpi-i2c-bus package."
+		/>
+		<meta
+			property="og:description"
+			content="A tool for creating custom font modules for the oled-rpi-i2c-bus package."
+		/>
 
-		<!-- TODO Add project snapshot -->
-		<meta name="twitter:image" content="" />
-		<meta property="og:image" content="" itemprop="thumbnailUrl" />
+		<meta name="twitter:image" content="images/ogimage.jpg" />
+		<meta property="og:image" content="images/ogimage.jpg" itemprop="thumbnailUrl" />
 
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:site" content="@ShadowShahriar" />
 
-		<!-- TODO Link the project -->
-		<meta property="og:url" content="https://shadowshahriar.github.io/" />
+		<meta property="og:url" content="https://shadowshahriar.github.io/oled-font-maker/" />
 		<meta property="og:site_name" content="GitHub Pages" />
 
 		<script>
 			document.documentElement.setAttribute('data-js', 'yes')
 		</script>
 
+		<!-- * Fonts -->
 		<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -45,21 +44,21 @@
 			rel="stylesheet"
 		/>
 
-		<!-- TODO Add site/project icon -->
-		<link
-			rel="icon"
-			type="image/svg+xml"
-			href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='1em' font-size='12.8'%3E🍀%3C/text%3E%3C/svg%3E"
-		/>
+		<!-- * Icons -->
+		<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+		<link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#000000" />
 
 		<!-- * Stylesheets -->
-		<link rel="stylesheet" href="./reset.css" />
-		<link rel="stylesheet" href="./index.css" />
-		<link rel="stylesheet" href="./range.css" />
+		<link rel="stylesheet" href="./src/reset.css" />
+		<link rel="stylesheet" href="./src/index.css" />
+		<link rel="stylesheet" href="./src/range.css" />
+		<link rel="stylesheet" href="./src/checkbox.css" />
 
 		<!-- * Scripts -->
-		<script src="./render.js" defer></script>
-		<script src="./index.js" defer></script>
+		<script src="./src/render.js" defer></script>
+		<script src="./src/index.js" defer></script>
 	</head>
 
 	<body>
@@ -70,16 +69,20 @@
 			<p>
 				This tool was inspired by the original
 				<a href="https://noopkat.github.io/oled-js-font-foundry/" target="_blank">OLED-js Font Foundry</a>
-				created by <a href="https://github.com/noopkat" target="_blank">noopkat</a> for
+				created by <a href="https://github.com/noopkat" target="_blank">Suz Hinton</a> for
 				<a href="https://github.com/noopkat/oled-js" target="_blank">oled-js</a>. However,
-				<strong>oled-js</strong> no longer works with the Raspberry Pi 5. So, I had to use migrate to one of its
-				supported forks <code>oled-rpi-i2c-bus</code>
+				<strong>oled-js</strong> no longer compatible with the <b>Raspberry Pi 5</b>. So, I had to use migrate
+				to one of its supported forks <code>oled-rpi-i2c-bus</code>
 			</p>
-			<p>This new package doesn't provide a similar tool to create custom font modules, so I made my own.</p>
+			<p>This new package does not offer a tool for creating custom font modules, so I developed my own.</p>
 			<h2 name="customization" id="customization">Customization</h2>
-			<p>Type in the full name of one of the fonts you've got installed on your system:</p>
+			<p>Type in the full name of one of the monospace fonts you've got installed on your system:</p>
 			<input type="text" id="fontFamily" placeholder="e.g. JetBrains Mono" />
-			<p>Adjust font size, threshold, and crop:</p>
+			<div class="checkbox-wrapper">
+				<input id="rA" type="checkbox" />
+				<label for="rA" class="checkbox">Use bold fonts</label>
+			</div>
+			<p>Adjust the font size, threshold, crop, and offset:</p>
 			<section id="advanced-options">
 				<div class="option-div">
 					<span>Font Size<code data-unit="px">12px</code></span>
@@ -90,25 +93,38 @@
 					<input type="range" class="win10-thumb" min="1" max="255" value="154" step="1" id="threshold" />
 				</div>
 				<div class="option-div">
-					<span>Crop <code data-unit="px">256px</code></span>
-					<input type="range" class="win10-thumb" min="0" max="42" value="0" step="2" id="crop" />
+					<span>Spacing<code data-unit="px">256px</code></span>
+					<input type="range" class="win10-thumb" min="-42" max="42" value="0" step="2" id="crop" />
 				</div>
 				<div class="option-div">
 					<span>Offset<code data-unit="px">256px</code></span>
-					<input type="range" class="win10-thumb" min="0" max="64" value="6" step="1" id="offset" />
+					<input type="range" class="win10-thumb" min="-64" max="64" value="-6" step="1" id="offset" />
 				</div>
 			</section>
 			<h2 name="preview" id="preview">Preview</h2>
-			<p>Here is how the characters would look on an OLED display:</p>
+			<p>Here's how the characters would appear on an OLED display:</p>
 			<div id="previewElm">No preview</div>
-			<p>You can add more characters if you want:</p>
-			<textarea rows="3" id="glyphs" spellcheck="false"></textarea>
+			<div class="checkbox-wrapper">
+				<input id="rB" type="checkbox" />
+				<label for="rB" class="checkbox">Show bounding boxes</label>
+			</div>
+			<p>Only these characters will be converted. You can insert more characters if you want:</p>
+			<textarea rows="5" id="glyphs" spellcheck="false"></textarea>
 			<h2 name="download" id="download">Download</h2>
-			<p>You can either copy the code or download it as a <code>.js</code> file:</p>
+			<p>You can either copy the code directly or download it as a <code>.js</code> file:</p>
 			<div id="download-section">
 				<button id="copy">Copy Code</button><button id="downloadBtn">Download Font File</button>
 			</div>
 			<textarea rows="18" id="code" spellcheck="false" readonly="true"></textarea>
+
+			<p align="center" class="footer">
+				<span>Made with ❤ by ShadowShahriar</span
+				><a href="https://github.com/ShadowShahriar" target="_blank">GitHub</a>&nbsp;|&nbsp;<a
+					href="https://www.threads.net/@shadowshahriar"
+					target="_blank"
+					>Threads</a
+				>&nbsp;|&nbsp;<a href="https://codepen.io/ShadowShahriar" target="_blank">CodePen</a>
+			</p>
 		</main>
 	</body>
 </html>
