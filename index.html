@@ -66,7 +66,7 @@
 		<main>
 			<canvas id="canvas"></canvas>
 			<h1>OLED Font Maker</h1>
-			<h2>Overview</h2>
+			<h2 name="overview" id="overview">Overview</h2>
 			<p>
 				This tool was inspired by the original
 				<a href="https://noopkat.github.io/oled-js-font-foundry/" target="_blank">OLED-js Font Foundry</a>
@@ -76,7 +76,7 @@
 				supported forks <code>oled-rpi-i2c-bus</code>
 			</p>
 			<p>This new package doesn't provide a similar tool to create custom font modules, so I made my own.</p>
-			<h2>Customization</h2>
+			<h2 name="customization" id="customization">Customization</h2>
 			<p>Type in the full name of one of the fonts you've got installed on your system:</p>
 			<input type="text" id="fontFamily" placeholder="e.g. JetBrains Mono" />
 			<p>Adjust font size, threshold, and crop:</p>
@@ -90,22 +90,23 @@
 					<input type="range" class="win10-thumb" min="1" max="255" value="154" step="1" id="threshold" />
 				</div>
 				<div class="option-div">
-					<span>Crop and Offset</span>
-					<span>C<code data-unit="px">256px</code></span>
-					<input type="range" class="win10-thumb" min="0" max="64" value="0" step="2" id="crop" />
-					<span>F<code data-unit="px">256px</code></span>
+					<span>Crop <code data-unit="px">256px</code></span>
+					<input type="range" class="win10-thumb" min="0" max="42" value="0" step="2" id="crop" />
+				</div>
+				<div class="option-div">
+					<span>Offset<code data-unit="px">256px</code></span>
 					<input type="range" class="win10-thumb" min="0" max="64" value="6" step="1" id="offset" />
 				</div>
 			</section>
-			<h2>Preview</h2>
+			<h2 name="preview" id="preview">Preview</h2>
 			<p>Here is how the characters would look on an OLED display:</p>
-			<div id="preview">A</div>
+			<div id="previewElm">No preview</div>
 			<p>You can add more characters if you want:</p>
 			<textarea rows="3" id="glyphs" spellcheck="false"></textarea>
-			<h2>Download</h2>
+			<h2 name="download" id="download">Download</h2>
 			<p>You can either copy the code or download it as a <code>.js</code> file:</p>
 			<div id="download-section">
-				<button id="copy">Copy Code</button><button id="download">Download Font File</button>
+				<button id="copy">Copy Code</button><button id="downloadBtn">Download Font File</button>
 			</div>
 			<textarea rows="18" id="code" spellcheck="false" readonly="true"></textarea>
 		</main>

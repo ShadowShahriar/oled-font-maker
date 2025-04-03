@@ -1,5 +1,6 @@
 const canvas = document.querySelector('#canvas')
 const ctx = canvas.getContext('2d')
+let fileName = 'test.js'
 let colors = {
 	foreground: 'white',
 	background: 'black'
@@ -85,6 +86,7 @@ function render() {
 			fontData.push.apply(fontData, getSumOfColumns(red, width, height))
 			lookup.push(glyph)
 		} catch (error) {
+			console.error(error)
 			return false
 		}
 	}
@@ -103,5 +105,6 @@ function render() {
 
 	const dataCode = JSON.stringify(fontObj)
 	output = '// prettier-ignore\nexport default ' + dataCode
+	fileName = `${fontObj.name}.js`
 	document.getElementById('code').value = `// ${fontObj.name}.js\nexport default ${dataCode}`
 }
