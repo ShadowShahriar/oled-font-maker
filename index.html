@@ -1,0 +1,113 @@
+<!-- @format -->
+<!-- * starter for more awesome HTML/CSS projects 😄 -->
+
+<!DOCTYPE html>
+<html lang="en" data-js="no">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- TODO Tweak theme colors -->
+		<meta name="theme-color" content="#151515" />
+		<meta name="theme-color" content="black" media="(prefers-color-scheme: dark)" />
+
+		<!-- TODO Add a nice title -->
+		<title>OLED Font Maker</title>
+		<meta name="twitter:title" content="OLED Font Maker" />
+		<meta property="og:title" content="OLED Font Maker" />
+
+		<!-- TODO Add a beautiful description -->
+		<meta name="description" content="" />
+		<meta name="twitter:description" content="" />
+		<meta property="og:description" content="" />
+
+		<!-- TODO Add project snapshot -->
+		<meta name="twitter:image" content="" />
+		<meta property="og:image" content="" itemprop="thumbnailUrl" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@ShadowShahriar" />
+
+		<!-- TODO Link the project -->
+		<meta property="og:url" content="https://shadowshahriar.github.io/" />
+		<meta property="og:site_name" content="GitHub Pages" />
+
+		<script>
+			document.documentElement.setAttribute('data-js', 'yes')
+		</script>
+
+		<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- TODO Add site/project icon -->
+		<link
+			rel="icon"
+			type="image/svg+xml"
+			href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='1em' font-size='12.8'%3E🍀%3C/text%3E%3C/svg%3E"
+		/>
+
+		<!-- * Stylesheets -->
+		<link rel="stylesheet" href="./reset.css" />
+		<link rel="stylesheet" href="./index.css" />
+		<link rel="stylesheet" href="./range.css" />
+
+		<!-- * Scripts -->
+		<script src="./render.js" defer></script>
+		<script src="./index.js" defer></script>
+	</head>
+
+	<body>
+		<main>
+			<canvas id="canvas"></canvas>
+			<h1>OLED Font Maker</h1>
+			<h2>Overview</h2>
+			<p>
+				This tool was inspired by the original
+				<a href="https://noopkat.github.io/oled-js-font-foundry/" target="_blank">OLED-js Font Foundry</a>
+				created by <a href="https://github.com/noopkat" target="_blank">noopkat</a> for
+				<a href="https://github.com/noopkat/oled-js" target="_blank">oled-js</a>. However,
+				<strong>oled-js</strong> no longer works with the Raspberry Pi 5. So, I had to use migrate to one of its
+				supported forks <code>oled-rpi-i2c-bus</code>
+			</p>
+			<p>This new package doesn't provide a similar tool to create custom font modules, so I made my own.</p>
+			<h2>Customization</h2>
+			<p>Type in the full name of one of the fonts you've got installed on your system:</p>
+			<input type="text" id="fontFamily" placeholder="e.g. JetBrains Mono" />
+			<p>Adjust font size, threshold, and crop:</p>
+			<section id="advanced-options">
+				<div class="option-div">
+					<span>Font Size<code data-unit="px">12px</code></span>
+					<input type="range" id="size" class="win10-thumb" min="10" max="128" value="25" step="1" />
+				</div>
+				<div class="option-div">
+					<span>Threshold<code data-unit="">256</code></span>
+					<input type="range" class="win10-thumb" min="1" max="255" value="154" step="1" id="threshold" />
+				</div>
+				<div class="option-div">
+					<span>Crop and Offset</span>
+					<span>C<code data-unit="px">256px</code></span>
+					<input type="range" class="win10-thumb" min="0" max="64" value="0" step="2" id="crop" />
+					<span>F<code data-unit="px">256px</code></span>
+					<input type="range" class="win10-thumb" min="0" max="64" value="6" step="1" id="offset" />
+				</div>
+			</section>
+			<h2>Preview</h2>
+			<p>Here is how the characters would look on an OLED display:</p>
+			<div id="preview">A</div>
+			<p>You can add more characters if you want:</p>
+			<textarea rows="3" id="glyphs" spellcheck="false"></textarea>
+			<h2>Download</h2>
+			<p>You can either copy the code or download it as a <code>.js</code> file:</p>
+			<div id="download-section">
+				<button id="copy">Copy Code</button><button id="download">Download Font File</button>
+			</div>
+			<textarea rows="18" id="code" spellcheck="false" readonly="true"></textarea>
+		</main>
+	</body>
+</html>

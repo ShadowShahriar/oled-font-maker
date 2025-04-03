@@ -1,0 +1,252 @@
+:root {
+	color: rgba(255, 255, 255, 0.9);
+	--background: #090b10;
+	--color-heading: hsl(174, 42%, 65%);
+	--color-heading-secondary: #fff;
+	--color-radio: #fff;
+	--color-radio-checked: hsl(174, 42%, 65%);
+	--color-outline: #fff;
+	background-color: var(--background);
+	font-size: 1.2rem;
+}
+
+h1,
+h2,
+h3 {
+	color: var(--color-heading);
+}
+
+h1 {
+	margin-bottom: 1.5em;
+}
+
+h2 {
+	margin-bottom: 0.6em;
+}
+
+h2::before {
+	content: '#';
+	color: var(--color-heading-secondary);
+	padding-right: 0.4em;
+}
+
+code {
+	background-color: var(--color-heading);
+	padding: 0.1em 0.6em;
+	border-radius: 0.4em;
+	font-family: inherit;
+	font-weight: 500;
+	color: var(--background);
+}
+
+p,
+input[type='text'],
+#advanced-options,
+#preview,
+#glyphs,
+#download-section {
+	margin-bottom: 1.5em;
+}
+
+p,
+li {
+	line-height: 1.7;
+}
+
+a {
+	color: var(--color-heading);
+	font-weight: 500;
+	text-decoration: underline;
+}
+
+ul > li {
+	list-style-type: none;
+}
+
+input[type='text'] {
+	width: 100%;
+	font-family: inherit;
+	font-size: inherit;
+	background: var(--background);
+	border: 0;
+	color: white;
+	outline: 2px solid var(--color-heading);
+	border-radius: 0.2em;
+	padding: 0.3em 1.4em;
+	opacity: 0.5;
+	transition: ease 200ms;
+	transition-property: color, background-color, opacity;
+	font-weight: 500;
+}
+
+input[type='text']::placeholder {
+	font-weight: normal;
+	opacity: 0.5;
+	color: currentColor;
+	transition: ease 200ms;
+	transition-property: color, background-color, opacity;
+}
+
+input[type='text']:hover,
+input[type='text']:active,
+input[type='text']:focus {
+	opacity: 1;
+}
+
+input[type='text']:active,
+input[type='text']:focus {
+	background: var(--color-heading);
+	color: var(--background);
+}
+
+.option-div {
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	align-items: center;
+	gap: 1em;
+	margin-bottom: 1em;
+}
+
+.option-div > span {
+	font-weight: 700;
+	display: inline-block;
+	flex: 1 0 11em;
+	white-space: nowrap;
+}
+
+.option-div > span:not(:first-of-type) {
+	flex: 1 0 0em;
+}
+
+.option-div > span:not(:first-of-type) > code {
+	min-width: 3.8em;
+	text-align: center;
+}
+
+.option-div code {
+	margin-left: 0.6em;
+	display: inline-block;
+}
+
+#preview,
+textarea {
+	word-break: break-all;
+	font-family: inherit;
+	font-size: inherit;
+	background: var(--background);
+	border: 0;
+	color: white;
+	outline: 2px solid var(--color-heading);
+	border-radius: 0.2em;
+	padding: 0.3em 1.4em;
+	width: 100%;
+}
+
+#preview {
+	padding-block: 1.4em;
+	line-height: 0;
+}
+
+textarea {
+	resize: none;
+	transition: ease 200ms;
+	transition-property: color, background-color, opacity;
+	opacity: 0.5;
+}
+
+textarea:hover,
+textarea:active,
+textarea:focus {
+	opacity: 1;
+}
+
+textarea:active,
+textarea:focus {
+	background: var(--color-heading);
+	color: var(--background);
+}
+
+::selection {
+	background-color: hsla(174, 42%, 55%, 20%);
+}
+
+input[type='text']::selection,
+textarea::selection {
+	color: #fff;
+	background-color: var(--background);
+}
+
+canvas {
+	display: none;
+}
+
+#download-section {
+	display: flex;
+	flex-direction: row;
+	gap: 1em;
+}
+
+#download-section button {
+	appearance: none;
+	flex: 1 0 10px;
+	background-color: transparent;
+	color: #fff;
+	border: 0;
+	outline: 2px solid rgba(255, 255, 255, 0.4);
+	border-radius: 0.2em;
+	font-family: inherit;
+	font-size: inherit;
+	padding: 0.5em 1em;
+	font-weight: 800;
+	opacity: 0.7;
+	transition: ease 200ms;
+	transition-property: opacity, transform;
+	transform: scale(1);
+	cursor: pointer;
+}
+
+button#download {
+	outline-color: var(--color-heading);
+	background-color: var(--color-heading);
+	color: var(--background);
+}
+
+#download-section button:hover,
+#download-section button:focus {
+	opacity: 1;
+}
+
+#download-section button:active {
+	opacity: 1;
+	transform: scale(0.95);
+}
+
+button::after {
+	content: '✔ Done';
+	background: #cced82;
+	color: var(--background);
+	width: calc(100% + 4px);
+	height: calc(100% + 4px);
+	display: grid;
+	place-items: center;
+	position: absolute;
+	left: -2px;
+	top: -2px;
+	border-radius: 0.3em;
+	clip-path: circle(0% at left 120%);
+	transition: clip-path ease 600ms;
+}
+
+button[data-done='true']::after {
+	clip-path: circle(200% at left 0%);
+}
+
+@media screen and (hover: hover) {
+	a {
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+}

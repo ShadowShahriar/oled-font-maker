@@ -1,0 +1,27 @@
+*,
+*::before,
+*::after {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	position: relative;
+}
+
+html {
+	font-family: 'JetBrains Mono';
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	padding: 4em 2em;
+}
+
+main {
+	margin: auto;
+	max-width: 700px;
+	padding-bottom: 5em;
+}
