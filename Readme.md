@@ -18,7 +18,7 @@ I have added additional features that were not present in the [**OLED-js Font Fo
 -   Prettify output code.
 -   Buttons to download it as font file or copy data to the clipboard.
 
-# License
+## License
 
 The source code is licensed under the [**MIT License**][LICENSE].
 
