@@ -152,6 +152,17 @@ input[type='text']:focus {
 	display: inline-block;
 }
 
+@media screen and (max-width: 500px) {
+	.option-div {
+		flex-direction: column;
+		align-items: start;
+	}
+
+	.option-div > span {
+		flex: 1 0 0em;
+	}
+}
+
 /* === preview and glyphs ==== */
 #previewElm,
 textarea {
