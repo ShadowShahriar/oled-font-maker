@@ -122,6 +122,20 @@ input[type='text']:focus {
 	display: inline-block;
 	flex: 1 0 11em;
 	white-space: nowrap;
+	cursor: pointer;
+	user-select: none;
+	opacity: 0.9;
+	transform: scale(1);
+	transition: ease 100ms;
+	transition-property: opacity, transform;
+}
+
+.option-div > span:hover {
+	opacity: 1;
+}
+
+.option-div > span:active {
+	transform: scale(0.96);
 }
 
 .option-div > span:not(:first-of-type) {

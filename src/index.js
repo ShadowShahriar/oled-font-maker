@@ -109,4 +109,15 @@ const download = async () => {
 btnCopy.addEventListener('click', copyCode)
 btnDownload.addEventListener('click', download)
 
+// ======================================
+// ==== handle double click to reset ====
+// ======================================
+document.querySelectorAll('.option-div').forEach(item => {
+	item.addEventListener('dblclick', _ => {
+		const range = item.querySelector('input[type="range"]')
+		range.value = +item.getAttribute('data-default')
+		range.dispatchEvent(new Event('input'))
+	})
+})
+
 render()
