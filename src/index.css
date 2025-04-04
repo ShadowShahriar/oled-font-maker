@@ -48,7 +48,6 @@ code {
 p,
 #advanced-options,
 #glyphs,
-#download-section,
 .checkbox-wrapper {
 	margin-bottom: 1.5em;
 }
@@ -186,7 +185,7 @@ textarea {
 textarea {
 	resize: none;
 	transition: ease 200ms;
-	transition-property: color, background-color, opacity;
+	transition-property: color, background-color, opacity, scrollbar-color;
 	opacity: 0.5;
 }
 
@@ -218,6 +217,7 @@ textarea::selection {
 	display: flex;
 	flex-direction: row;
 	gap: 1em;
+	margin-bottom: 1em;
 }
 
 #download-section button {
@@ -351,5 +351,11 @@ a {
 
 	html {
 		scrollbar-color: var(--color-heading) var(--background);
+		transition: ease 200ms;
+		transition-property: scrollbar-color;
+	}
+
+	textarea:focus {
+		scrollbar-color: var(--background) var(--color-heading);
 	}
 }

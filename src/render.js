@@ -125,7 +125,7 @@ function render() {
 		const lookupStr = JSON.stringify(lookup)
 		const fontDataStr = JSON.stringify(fontData).slice(1, -1)
 		const regex = new RegExp(`(([^,]*,){${width}})`, 'gm')
-		const unlabeledData = '\n' + fontDataStr.replace(regex, '$1\n')
+		const unlabeledData = '\n' + fontDataStr.replace(regex, '$1\n').replace(/,/gm, ', ')
 		const labeledData = unlabeledData
 			.split('\n')
 			.map((l, i) => (i === 0 ? l : `/* === ${lookup[i - 1] || ''} === */ ${l}`))
@@ -133,16 +133,16 @@ function render() {
 
 		const fontDataPretty = labeledData.trimStart()
 		const lookupPretty =
-			' ' +
+			'  ' +
 			lookupStr
 				.replaceAll('","', "', '")
 				.replace(/\'\'\'/, '"\'"')
 				.replace('["', "'")
 				.replace('"]', "'")
-				.replace(/(([^,]*,){10})/gm, '$1\n')
+				.replace(/(([^,]*,){10})/gm, '$1\n ')
 
-		const i2x = '  '
-		const i4x = 4
+		const i2x = ' '.repeat(4)
+		const i4x = 8
 		const i4xs = ' '.repeat(i4x)
 		dataCode =
 			`{\n${i2x}name: "${fontName}",\n${i2x}monospace: true,\n` +
@@ -156,12 +156,12 @@ function render() {
 		dataCode = JSON.stringify(fontObj)
 	}
 
-	const separator = '='.repeat(fileName.length + 8)
-	const metadata = `/* ${separator}
-   === ${fileName} ===
-   Font name: ${font}
-   Font size: ${size}px
-   ${separator}
+	const separator = '=== '.repeat(Math.floor((fileName.length + 15) / 4))
+	const metadata = `/*  ${separator}
+    File name: ${fileName}
+    Font name: ${font}
+    Font size: ${size}px
+    ${separator}
  */\n\n// prettier-ignore\n`
 	output = `${metadata}${conjunction} ${dataCode}`
 	document.getElementById('code').value = `${metadata}${conjunction} ${dataCode}`
