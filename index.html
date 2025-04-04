@@ -93,8 +93,8 @@
 				<a href="https://noopkat.github.io/oled-js-font-foundry/" target="_blank">OLED-js Font Foundry</a>
 				created by <a href="https://github.com/noopkat" target="_blank">Suz Hinton</a> for
 				<a href="https://github.com/noopkat/oled-js" target="_blank">oled-js</a>. However,
-				<strong>oled-js</strong> no longer compatible with the <b>Raspberry Pi 5</b>. So, I had to use migrate
-				to one of its supported forks <code>oled-rpi-i2c-bus</code>
+				<strong>oled-js</strong> is no longer compatible with the <b>Raspberry Pi 5</b>. So, I had to use one of
+				its supported forks <code>oled-rpi-i2c-bus</code>
 			</p>
 			<p>This new package does not offer a tool for creating custom font modules, so I developed my own.</p>
 			<h2 name="customization" id="customization">Customization</h2>
@@ -136,6 +136,10 @@
 			<p>You can either copy the code directly or download it as a <code>.js</code> file:</p>
 			<div id="download-section">
 				<button id="copy">Copy Code</button><button id="downloadBtn">Download Font File</button>
+			</div>
+			<div class="checkbox-wrapper">
+				<input id="rC" type="checkbox" />
+				<label for="rC" class="checkbox">Prettify</label>
 			</div>
 			<textarea rows="18" id="code" spellcheck="false" readonly="true"></textarea>
 

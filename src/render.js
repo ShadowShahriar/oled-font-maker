@@ -96,20 +96,73 @@ function render() {
 		}
 	}
 
+	const fontName = font.toLowerCase().replace(/\s/g, '_') + '_' + size + 'px'
 	const fontObj = {
-		name: font.toLowerCase().replace(/\s/g, '_') + '_' + size,
+		name: fontName,
 		monospace: true,
 		width,
 		height,
-		threshold,
-		crop,
-		y,
 		fontData,
-		lookup
+		lookup,
+		config: {
+			threshold,
+			crop,
+			y
+		}
 	}
 
-	const dataCode = JSON.stringify(fontObj)
-	output = '// prettier-ignore\nexport default ' + dataCode
 	fileName = `font.${fontObj.name}.js`
-	document.getElementById('code').value = `// ${fileName}\nexport default ${dataCode}`
+	const prettify = document.getElementById('rC').checked
+	const conjunction = 'export default'
+	let dataCode
+	if (prettify) {
+		const indent = (str, n) =>
+			str
+				.split('\n')
+				.map(l => `${' '.repeat(n)}${l}`)
+				.join('\n')
+
+		const lookupStr = JSON.stringify(lookup)
+		const fontDataStr = JSON.stringify(fontData).slice(1, -1)
+		const regex = new RegExp(`(([^,]*,){${width}})`, 'gm')
+		const unlabeledData = '\n' + fontDataStr.replace(regex, '$1\n')
+		const labeledData = unlabeledData
+			.split('\n')
+			.map((l, i) => (i === 0 ? l : `/* === ${lookup[i - 1] || ''} === */ ${l}`))
+			.join('\n')
+
+		const fontDataPretty = labeledData.trimStart()
+		const lookupPretty =
+			' ' +
+			lookupStr
+				.replaceAll('","', "', '")
+				.replace(/\'\'\'/, '"\'"')
+				.replace('["', "'")
+				.replace('"]', "'")
+				.replace(/(([^,]*,){10})/gm, '$1\n')
+
+		const i2x = '  '
+		const i4x = 4
+		const i4xs = ' '.repeat(i4x)
+		dataCode =
+			`{\n${i2x}name: "${fontName}",\n${i2x}monospace: true,\n` +
+			`${i2x}width: ${width},\n${i2x}height: ${height},\n${i2x}fontData: [\n${indent(
+				fontDataPretty,
+				i4x
+			)}\n${i2x}],\n` +
+			`${i2x}lookup: [\n${indent(lookupPretty, i4x)}\n${i2x}],\n` +
+			`${i2x}config: {\n${i4xs}threshold: ${threshold},\n${i4xs}crop: ${crop},\n${i4xs}y: ${y}\n${i2x}}\n}`
+	} else {
+		dataCode = JSON.stringify(fontObj)
+	}
+
+	const separator = '='.repeat(fileName.length + 8)
+	const metadata = `/* ${separator}
+   === ${fileName} ===
+   Font name: ${font}
+   Font size: ${size}px
+   ${separator}
+ */\n\n// prettier-ignore\n`
+	output = `${metadata}${conjunction} ${dataCode}`
+	document.getElementById('code').value = `${metadata}${conjunction} ${dataCode}`
 }
