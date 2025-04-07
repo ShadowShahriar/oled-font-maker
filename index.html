@@ -86,6 +86,7 @@
 	<body>
 		<main>
 			<canvas id="canvas"></canvas>
+			<canvas id="monoCanvas"></canvas>
 			<h1>OLED Font Maker</h1>
 			<h2 name="overview" id="overview">Overview</h2>
 			<p>
@@ -99,7 +100,8 @@
 			<p>This new package does not offer a tool for creating custom font modules, so I developed my own.</p>
 			<h2 name="customization" id="customization">Customization</h2>
 			<p>Type in the full name of one of the monospace fonts you've got installed on your system:</p>
-			<input type="text" id="fontFamily" placeholder="e.g. JetBrains Mono" />
+			<input type="text" id="fontFamily" placeholder="e.g. JetBrains Mono" list="monospaceFonts" />
+			<datalist id="monospaceFonts"></datalist>
 			<div class="checkbox-wrapper">
 				<input id="rA" type="checkbox" />
 				<label for="rA" class="checkbox">Use bold fonts</label>

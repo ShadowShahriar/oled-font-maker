@@ -1,3 +1,4 @@
+let handleOnce = false
 const defaultFont = 'Consolas'
 const defaultGlyphs =
 	' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~°'
@@ -120,4 +121,41 @@ document.querySelectorAll('.option-div').forEach(item => {
 	})
 })
 
+// ============================
+// ==== obtain local fonts ====
+// ============================
+const obtainLocalFonts = async _ => {
+	if (!handleOnce) {
+		if ('queryLocalFonts' in window) {
+			console.log('✅ queryLocalFonts is supported.')
+
+			let fonts = []
+			const availableFonts = await window.queryLocalFonts()
+			for (const font of availableFonts) fonts.push(font.family)
+
+			const fontFamiliesSet = new Set(fonts)
+			const fontFamilies = Array.from(fontFamiliesSet)
+
+			const datalist = document.getElementById('monospaceFonts')
+			const monoCanvas = document.querySelector('#monoCanvas')
+			const mCtx = monoCanvas.getContext('2d')
+
+			for (const font of fontFamilies) {
+				mCtx.font = `20px "${font}"`
+				const mw = mCtx.measureText('m').width
+				const iw = mCtx.measureText('i').width
+				if (mw === iw) {
+					const opt = document.createElement('option')
+					opt.value = font
+					datalist.appendChild(opt)
+				}
+			}
+		} else {
+			console.log('⛔ queryLocalFonts is NOT supported.')
+		}
+		handleOnce = true
+	}
+}
+
+fontFamily.addEventListener('click', async _ => obtainLocalFonts())
 render()
