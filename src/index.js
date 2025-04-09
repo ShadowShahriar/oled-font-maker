@@ -126,6 +126,7 @@ document.querySelectorAll('.option-div').forEach(item => {
 // ============================
 const obtainLocalFonts = async _ => {
 	if (!handleOnce) {
+		const datalist = document.getElementById('monospaceFonts')
 		if ('queryLocalFonts' in window) {
 			console.log('✅ queryLocalFonts is supported.')
 
@@ -136,7 +137,6 @@ const obtainLocalFonts = async _ => {
 			const fontFamiliesSet = new Set(fonts)
 			const fontFamilies = Array.from(fontFamiliesSet)
 
-			const datalist = document.getElementById('monospaceFonts')
 			const monoCanvas = document.querySelector('#monoCanvas')
 			const mCtx = monoCanvas.getContext('2d')
 
@@ -152,6 +152,9 @@ const obtainLocalFonts = async _ => {
 			}
 		} else {
 			console.log('⛔ queryLocalFonts is NOT supported.')
+			const opt = document.createElement('option')
+			opt.value = 'JetBrains Mono'
+			datalist.appendChild(opt)
 		}
 		handleOnce = true
 	}
