@@ -1,5 +1,7 @@
 # oled-font-maker
 
+<img align="left" width="128" height="128" src="./images/apple-touch-icon.png">
+
 This tool was inspired by the original [**OLED-js Font Foundry**][OLEDFF] created by [**Suz Hinton**][NOOPKAT] for [**oled-js**][OLEDJS]. However, **oled-js** is no longer compatible with the **Raspberry Pi 5**. So, I had to use one of its supported forks [`oled-rpi-i2c-bus`][OLEDRPI].
 
 This new package does not offer a tool for creating custom font modules, so I developed my own.
